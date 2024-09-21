@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "d1f79227-63cf-40b4-9799-69ea5d30ea8e",
+		"name": "client-crentials-spring",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "OAuth Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const json = pm.response.json()\r",
+							"const d = json.hasOwnProperty(\"data\") ? json.data : json\r",
+							"const accessToken = Array.isArray(d) ? d[0].access_token : d.access_token\r",
+							"pm.globals.set(\"client_token\", accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_id",
+							"value": "relive-client",
+							"type": "text"
+						},
+						{
+							"key": "client_secret",
+							"value": "relive-client",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8080/oauth2/token",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8080",
+					"path": [
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Resource",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{client_token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "OAuth2AuthorizedClient.CLIENT_REGISTRATION_ID",
+						"value": "messaging-client-model",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://127.0.0.1:8090/resource/article",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8090",
+					"path": [
+						"resource",
+						"article"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
