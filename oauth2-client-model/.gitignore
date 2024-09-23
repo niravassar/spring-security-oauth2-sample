@@ -41,3 +41,6 @@ out/
 /client-model-resource-server/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 /client-model-oauth2-server/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
 /client-model-resource-server/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/oauth2client/target/classes/application.yml
+/oauth2client/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/oauth2client/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
