@@ -70,7 +70,30 @@ public class OAuth2ServerConfig {
                         .build())
                 .build();
 
-        return new InMemoryRegisteredClientRepository(registeredClient);
+        RegisteredClient registeredClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("relive-client2")
+                .clientSecret("{noop}relive-client2")
+                .clientAuthenticationMethods(s -> {
+                    s.add(ClientAuthenticationMethod.CLIENT_SECRET_POST);
+                    s.add(ClientAuthenticationMethod.CLIENT_SECRET_BASIC);
+                })
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .redirectUri("http://127.0.0.1:8070/login/oauth2/code/messaging-client-model")
+                .scope("message.read")
+                .clientSettings(ClientSettings.builder()
+                        .requireAuthorizationConsent(true)
+                        .requireProofKey(false)
+                        .build())
+                .tokenSettings(TokenSettings.builder()
+                        .accessTokenFormat(OAuth2TokenFormat.SELF_CONTAINED) // Generate JWT token
+                        .idTokenSignatureAlgorithm(SignatureAlgorithm.RS256)//idTokenSignatureAlgorithm: signature algorithm
+                        .accessTokenTimeToLive(Duration.ofSeconds(30 * 60))//accessTokenTimeToLive：access_token validity period
+                        .refreshTokenTimeToLive(Duration.ofSeconds(60 * 60))//refreshTokenTimeToLive：refresh_token validity period
+                        .reuseRefreshTokens(true)//reuseRefreshTokens: whether to reuse refresh tokens
+                        .build())
+                .build();
+
+        return new InMemoryRegisteredClientRepository(registeredClient, registeredClient2);
     }
 
     @Bean

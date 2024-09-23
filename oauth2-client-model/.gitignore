@@ -35,3 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
+/client-model-oauth2-server/target/classes/application.yml
+/client-model-resource-server/target/classes/application.yml
+/client-model-oauth2-server/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/client-model-resource-server/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+/client-model-oauth2-server/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+/client-model-resource-server/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
